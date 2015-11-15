@@ -1,0 +1,134 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>CRPP Cities</title>
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"
+        type="text/javascript"></script>
+
+
+
+</head>
+<body>
+<div><h1></h1></div>
+<div id="CRPPMAP">
+<style type="text/css">
+#container {
+    height: 500px;
+    min-width: 310px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+}  </style>
+
+
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <!-- <script src="https://code.highcharts.com/maps/modules/exporting.js"></script> -->
+
+    <script type="text/javascript">
+        $(function () {
+
+    // Prepare random data
+    var data = [
+        {
+            "C_Distri": "01",
+            "value": 7,
+
+        },
+        {
+            "C_Distri": "02",
+            "value": 6
+        },
+        {
+            "C_Distri": "03",
+            "value": 5
+        },
+        {
+            "C_Distri": "04",
+            "value": 4
+        },
+        {
+            "C_Distri": "05",
+            "value": 8
+        },
+        {
+            "C_Distri": "06",
+            "value": 7
+        },
+        {
+            "C_Distri": "07",
+            "value": 5
+        },
+        {
+            "C_Distri": "08",
+            "value": 3
+        },
+        {
+            "C_Distri": "09",
+            "value": 7
+        },
+        {
+            "C_Distri": "10",
+            "value": 8
+        },
+    ];
+
+
+    $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/districtes/districtes_geo.json', function (geojson) {
+
+        // Initiate the chart
+        $('#container').highcharts('Map', {
+
+            title : {
+                text : 'BCN Resilence Profile'
+            },
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+
+            colorAxis: {
+            },
+
+            series : [{
+                data : data,
+                mapData: geojson,
+                joinBy: ['C_Distri', 'C_Distri'],
+                name: 'Overall Score',
+                states: {
+                    hover: {
+                        color: '#BADA55'
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    //format: '{point.properties.postal}'
+                    format: '{point.properties.N_Distri}',
+                }
+
+            }]
+        });
+
+    });
+});
+    </script>
+
+<div id="container"></div>
+
+
+</div>
+
+
+
+
+</body>
